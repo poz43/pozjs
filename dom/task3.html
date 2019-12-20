@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-content: center;
+    }
+
+    .box {
+      width: 640px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      flex-wrap: wrap;
+      margin: auto;
+    }
+
+    .cell {
+      width: 80px;
+      height: 80px;
+      background-color: #ebecd0;
+      position: relative;
+    }
+
+    .cell::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      -webkit-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      background-image: url("./img/sprite.png");
+      background-repeat: no-repeat;
+      background-size: 500px;
+    }
+    
+/*    пешка*/
+    .pawn-white::before {
+      width: 60px;
+      height: 60px;
+      background-position: -428px -14px;
+    }
+    
+/*    ладья*/
+    .rook-white::before {
+      width: 60px;
+      height: 60px;
+      background-position: -346px -14px;
+    }
+    
+/*    конь*/
+    .knight-white::before {
+      width: 60px;
+      height: 60px;
+      background-position: -261px -14px;
+    }
+    
+/*    слон*/
+    .bishop-white::before {
+      width: 60px;
+      height: 70px;
+      background-position: -180px -5px;
+    }
+    
+/*    королева*/
+    .queen-white::before {
+      width: 64px;
+      height: 64px;
+      background-position: -10px -11px;
+    }
+    
+/*    король*/
+    .king-white::before {
+      background-size: 465px;
+      width: 64px;
+      height: 64px;
+      background-position: -84px -7px;
+    }
+    
+    /*    пешка*/
+    .pawn-black::before {
+      width: 60px;
+      height: 60px;
+      background-position: -428px -97px;
+    }
+    
+/*    ладья*/
+    .rook-black::before {
+      width: 60px;
+      height: 60px;
+      background-position: -346px -97px;
+    }
+    
+/*    конь*/
+    .knight-black::before {
+      width: 60px;
+      height: 60px;
+      background-position: -261px -97px;
+    }
+    
+/*    слон*/
+    .bishop-black::before {
+      width: 60px;
+      height: 70px;
+      background-position: -180px -88px;
+    }
+    
+/*    королева*/
+    .queen-black::before {
+      width: 64px;
+      height: 64px;
+      background-position: -10px -93px;
+    }
+    
+/*    король*/
+    .king-black::before {
+      background-size: 465px;
+      width: 64px;
+      height: 64px;
+      background-position: -84px -84px;
+    }
+
+    .dark {
+      background-color: #779556;
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <section class="box">
+    <div class="cell rook-white"></div>
+    <div class="cell dark knight-white"></div>
+    <div class="cell bishop-white"></div>
+    <div class="cell dark king-white"></div>
+    <div class="cell queen-white"></div>
+    <div class="cell dark bishop-white"></div>
+    <div class="cell knight-white"></div>
+    <div class="cell dark rook-white"></div>
+
+    <div class="cell dark pawn-white"></div>
+    <div class="cell pawn-white"></div>
+    <div class="cell dark pawn-white"></div>
+    <div class="cell pawn-white"></div>
+    <div class="cell dark pawn-white"></div>
+    <div class="cell pawn-white"></div>
+    <div class="cell dark pawn-white"></div>
+    <div class="cell pawn-white"></div>
+
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+    <div class="cell dark"></div>
+    <div class="cell"></div>
+
+    <div class="cell pawn-black"></div>
+    <div class="cell dark pawn-black"></div>
+    <div class="cell pawn-black"></div>
+    <div class="cell dark pawn-black"></div>
+    <div class="cell pawn-black"></div>
+    <div class="cell dark pawn-black"></div>
+    <div class="cell pawn-black"></div>
+    <div class="cell dark pawn-black"></div>
+
+    <div class="cell dark rook-black"></div>
+    <div class="cell knight-black"></div>
+    <div class="cell dark bishop-black"></div>
+    <div class="cell king-black"></div>
+    <div class="cell dark queen-black"></div>
+    <div class="cell bishop-black"></div>
+    <div class="cell dark knight-black"></div>
+    <div class="cell rook-black"></div>
+
+  </section>
+</body>
+
+</html>
