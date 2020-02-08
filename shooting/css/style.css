@@ -1,0 +1,38 @@
+body {
+  height: 100vh;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  cursor: url("../img/cursor.png"), default;
+}
+
+.table {
+  width: 90%;
+  height: 182px;
+  border-bottom: 10px solid brown;
+  display: flex;
+  justify-content: space-between
+}
+
+.jar {
+  width: 80px;
+  height: 195px;
+  background-image: url("../img/jar.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 130px;
+  transform-origin: 50% bottom;
+}
+
+.del {
+  animation: del .4s forwards;
+}
+
+@keyframes del {
+  100% {transform: rotateX(90deg);}
+}
