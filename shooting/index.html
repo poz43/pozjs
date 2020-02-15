@@ -5,17 +5,89 @@
   <title>Document</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-  <div class="count">Сбитых банок<span>0</span>  шт.</div>
+
+  <div class="count">Сбитых банок <span>0</span> шт.</div>
   <div class="table">
-    <div class="jar"></div>
-    <div class="jar"></div>
-    <div class="jar"></div>
-    <div class="jar"></div>
-    <div class="jar"></div>
+    <div class="jar right"></div>
+    <div class="jar right"></div>
+    <div class="jar right"></div>
+    <div class="jar right"></div>
+    <div class="jar right"></div>
   </div>
-  
+  <div class="table">
+    <div class="jar left"></div>
+    <div class="jar left"></div>
+    <div class="jar left"></div>
+    <div class="jar left"></div>
+    <div class="jar left"></div>
+  </div>
+
   <audio class="shot" src="audio/shot.mp3"></audio>
   <audio class="hit" src="audio/hit.mp3"></audio>
-</body>
-</html>
+  <audio class="time" src="audio/time.mp3"></audio>
+
+
+  <script>
+    let bodyEl = document.querySelector('body');
+    let shot = document.querySelector('.shot');
+    let hit = document.querySelector('.hit');
+    let time = document.querySelector('.time');
+    let count = document.querySelector('.count span');
+    let jars = document.querySelectorAll('.jar');
+    let jarsCount = jars.length;
+    let counter = 0;
+
+    document.body.addEventListener('click', function(evt) {
+      let trg = evt.target;
+      shotEl(evt);
+
+      if (trg.classList.contains('jar')) {
+        hit.pause();
+        hit.currentTime = 0.0;
+        hit.play();
+        counter++;
+        count.textContent = counter;
+        trg.classList.add('del');
+
+        counter === jarsCount ? time.play() && setTimeout(replay, 1000) : null;
+
+
+      } else {
+        shot.pause();
+        shot.currentTime = 0.0;
+        shot.play();
+      }
+
+    });
+
+    function replay() {
+      for (let i = 0; i < jars.length; i++) {
+        jars[i].classList.remove('del');
+      }
+      counter = 0;
+      count.textContent = counter;
+    }
+
+
+    function shotEl(evt) {
+        let shot = document.createElement('span');
+        let shots = [];
+        shot.classList.add('shot');
+        shot.style.top = evt.pageY + 'px';
+        shot.style.left = evt.pageX + 'px';
+        bodyEl.insertAdjacentElement('beforebegin', shot);
+        shots.push(shot);
+        removeShot(shots)
+    }
+    
+    function removeShot(shots) {
+      setTimeout(function() {
+        let item = shots.shift();
+        item.remove();
+      }, 1500)
+    }
+  </script>
+
+</body></html>

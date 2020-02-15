@@ -1,3 +1,10 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+  cursor: url("../img/cursor.png") 27 27, default;
+}
+
 body {
   height: 100vh;
   display: -webkit-flex;
@@ -8,7 +15,30 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  cursor: url("../img/cursor.png"), default;
+  position: relative;
+}
+
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../img/back.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  filter: blur(5px);
+}
+
+.count {
+  padding: 20px 40px;
+  font-size: 20px;
+  color: #fff;
+  background-color: darkslategrey;
+  position: relative;
+  z-index: 1;
 }
 
 .table {
@@ -16,7 +46,11 @@ body {
   height: 182px;
   border-bottom: 10px solid brown;
   display: flex;
-  justify-content: space-between
+  justify-content: space-around;
+  position: relative;
+  bottom: 100px;
+  z-index: 2;
+  overflow: hidden;
 }
 
 .jar {
@@ -29,10 +63,73 @@ body {
   transform-origin: 50% bottom;
 }
 
-.del {
-  animation: del .4s forwards;
+.jar.right {
+  animation: toRight 15s infinite ease-out;
 }
 
-@keyframes del {
-  100% {transform: rotateX(90deg);}
+.jar.left {
+  animation: toLeft 10s infinite ease-in-out;
+}
+
+.shot {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: red;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  animation: toHide 1.5s forwards linear;
+}
+
+.del {
+  opacity: 0;
+  visibility: hidden;
+}
+
+
+@keyframes toRight {
+  30% {
+    transform: translateX(500px);
+  }
+
+  60% {
+    transform: translateX(-1000px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes toLeft {
+  30% {
+    transform: translateX(-500px);
+  }
+
+  60% {
+    transform: translateX(1000px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes toHide {
+  0% {
+    transform: opacity: 1;
+    background-color: red;
+  }
+  
+  50% {
+    transform: opacity: 0;
+  }
+
+  100% {
+    background-color: black;
+    visibility: hidden;  
+  }
 }
