@@ -1,0 +1,36 @@
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-image: url('img/back.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.box {
+  width: 500px;
+  height: 500px;
+  background-color: rgba(255, 255, 255, .6);
+  border: 5px solid #fff;
+  border-radius: 5px;
+  display: flex;
+  flex-wrap: wrap
+}
+
+.cell {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #fff;
+}
+
+.tank {
+  background-image: url('img/tank.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
