@@ -5,6 +5,7 @@ let y = 1
 let tank
 let direction = 'right'
 let transform = 0
+let fire;
 
 function createField() {
   for (let i = 1; i <= cellCount; i++) {
@@ -94,10 +95,93 @@ function tankControl() {
   })
 }
 
+function delFire() {
+  fire = field.querySelector('.fire')
+  fire ? fire.classList.remove('fire') : null
+}
+
+function setFire() {
+  fire ? fire.classList.add('fire') : null
+}
+
+function setCoordFire(coord, x, y) {
+  delFire()
+  fire = field.querySelector('[posX="' + (+coord[0] + x) + '"][posY="' + (+coord[1] + y) + '"]')
+  setFire()
+}
+
+function newCoordFire(currentCoord, x, y) {
+  setCoordFire(currentCoord, x, y)
+  currentCoord[0] = +currentCoord[0] + x
+  currentCoord[1] = +currentCoord[1] + y
+  console.log('asd')
+}
+
+function fireRight(coord) {
+  let interval = setInterval(function () {
+    if (coord[0] < 10) {
+      newCoordFire(coord, 1, 0)
+    } else {
+      clearInterval(interval)
+      delFire()
+    }
+  }, 500)
+}
+
+function fireLeft(coord) {
+  let interval = setInterval(function () {
+    if (coord[0] > 1) {
+      newCoordFire(coord, -1, 0)
+    } else {
+      clearInterval(interval)
+      delFire()
+    }
+  }, 500)
+}
+
+function fireUp(coord) {
+  let interval = setInterval(function () {
+    if (coord[1] > 1) {
+      newCoordFire(coord, 0, -1)
+    } else {
+      clearInterval(interval)
+      delFire()
+    }
+  }, 500)
+}
+
+function fireDown(coord) {
+  let interval = setInterval(function () {
+    if (coord[1] < 10) {
+      newCoordFire(coord, 0, 1)
+    } else {
+      clearInterval(interval)
+      delFire()
+    }
+  }, 500)
+}
+
+function hit() {
+  document.addEventListener('click', function () {
+    let currentCoord = [tank.getAttribute('posX'), tank.getAttribute('posY')]
+
+    if (direction === 'right') {
+      fireRight(currentCoord);
+    } else if (direction === 'left') {
+      fireLeft(currentCoord);
+    } else if (direction === 'up') {
+      fireUp(currentCoord);
+    } else if (direction === 'down') {
+      fireDown(currentCoord);
+    }
+  })
+}
+
 function init() {
   createField()
   createTank(5, 5)
   tankControl()
+  hit()
 }
 
 init()

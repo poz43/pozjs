@@ -34,3 +34,17 @@ body {
   background-repeat: no-repeat;
   background-position: center;
 }
+
+.enemy {
+  background-image: url('img/enemy.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.fire {
+  background-image: url('img/fire.png');
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-position: center;
+}
