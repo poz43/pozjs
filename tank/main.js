@@ -1,11 +1,12 @@
-let field = document.querySelector('.box')
-let cellCount = 100
+const field = document.querySelector('.box')
+const cellCount = 100
+const hitTime = 500
+let direction = 'right'
+let transform = 0
 let x = 1
 let y = 1
 let tank
-let direction = 'right'
-let transform = 0
-let fire;
+let fire
 
 function createField() {
   for (let i = 1; i <= cellCount; i++) {
@@ -45,9 +46,15 @@ function delTank() {
   tank.classList.remove('tank')
 }
 
-function setNewCoord(coord, x, y) {
+function setNewTankCoord(coord, x, y) {
+  let newTankCoord = field.querySelector('[posX="' + (+coord[0] + x) + '"][posY="' + (+coord[1] + y) + '"]')
+
+  if (newTankCoord.classList.contains('fire') || newTankCoord.classList.contains('enemy')) {
+    return
+  }
+
   delTank()
-  tank = field.querySelector('[posX="' + (+coord[0] + x) + '"][posY="' + (+coord[1] + y) + '"]')
+  tank = newTankCoord
   setTank()
 }
 
@@ -56,19 +63,19 @@ function tankMove() {
 
   if (direction === 'left') {
     if (tankCoord[0] > 1) {
-      setNewCoord(tankCoord, -1, 0)
+      setNewTankCoord(tankCoord, -1, 0)
     }
   } else if (direction === 'right') {
     if (tankCoord[0] < 10) {
-      setNewCoord(tankCoord, 1, 0)
+      setNewTankCoord(tankCoord, 1, 0)
     }
   } else if (direction === 'up') {
     if (tankCoord[1] > 1) {
-      setNewCoord(tankCoord, 0, -1)
+      setNewTankCoord(tankCoord, 0, -1)
     }
   } else if (direction === 'down') {
     if (tankCoord[1] < 10) {
-      setNewCoord(tankCoord, 0, 1)
+      setNewTankCoord(tankCoord, 0, 1)
     }
   }
 }
@@ -95,9 +102,9 @@ function tankControl() {
   })
 }
 
-function delFire() {
-  fire = field.querySelector('.fire')
-  fire ? fire.classList.remove('fire') : null
+function delFire(coord) {
+  let fireItem = field.querySelector('[posX="' + (+coord[0]) + '"][posY="' + (+coord[1]) + '"]')
+  fireItem ? fireItem.classList.remove('fire') : null
 }
 
 function setFire() {
@@ -105,7 +112,7 @@ function setFire() {
 }
 
 function setCoordFire(coord, x, y) {
-  delFire()
+  delFire(coord)
   fire = field.querySelector('[posX="' + (+coord[0] + x) + '"][posY="' + (+coord[1] + y) + '"]')
   setFire()
 }
@@ -114,7 +121,6 @@ function newCoordFire(currentCoord, x, y) {
   setCoordFire(currentCoord, x, y)
   currentCoord[0] = +currentCoord[0] + x
   currentCoord[1] = +currentCoord[1] + y
-  console.log('asd')
 }
 
 function fireRight(coord) {
@@ -123,9 +129,9 @@ function fireRight(coord) {
       newCoordFire(coord, 1, 0)
     } else {
       clearInterval(interval)
-      delFire()
+      delFire([10, coord[1]])
     }
-  }, 500)
+  }, hitTime)
 }
 
 function fireLeft(coord) {
@@ -134,9 +140,9 @@ function fireLeft(coord) {
       newCoordFire(coord, -1, 0)
     } else {
       clearInterval(interval)
-      delFire()
+      delFire([1, coord[1]])
     }
-  }, 500)
+  }, hitTime)
 }
 
 function fireUp(coord) {
@@ -145,9 +151,9 @@ function fireUp(coord) {
       newCoordFire(coord, 0, -1)
     } else {
       clearInterval(interval)
-      delFire()
+      delFire([coord[0], 1])
     }
-  }, 500)
+  }, hitTime)
 }
 
 function fireDown(coord) {
@@ -156,25 +162,61 @@ function fireDown(coord) {
       newCoordFire(coord, 0, 1)
     } else {
       clearInterval(interval)
-      delFire()
+      delFire([coord[0], 10])
     }
-  }, 500)
+  }, hitTime)
 }
 
 function hit() {
-  document.addEventListener('click', function () {
-    let currentCoord = [tank.getAttribute('posX'), tank.getAttribute('posY')]
+  document.addEventListener('keydown', function (evt) {
+    if (evt.keyCode === 32) {
+      let currentCoord = [tank.getAttribute('posX'), tank.getAttribute('posY')]
 
-    if (direction === 'right') {
-      fireRight(currentCoord);
-    } else if (direction === 'left') {
-      fireLeft(currentCoord);
-    } else if (direction === 'up') {
-      fireUp(currentCoord);
-    } else if (direction === 'down') {
-      fireDown(currentCoord);
+      if (direction === 'right') {
+        fireRight(currentCoord)
+      } else if (direction === 'left') {
+        fireLeft(currentCoord)
+      } else if (direction === 'up') {
+        fireUp(currentCoord)
+      } else if (direction === 'down') {
+        fireDown(currentCoord)
+      }
     }
   })
+}
+
+function getRandomCoord() {
+  return Math.floor(Math.random() * 9) + 1
+}
+
+function getEnemyCoord() {
+  let enemyCoord = []
+  enemyCoord[0] = getRandomCoord()
+  enemyCoord[1] = getRandomCoord()
+
+  return enemyCoord
+}
+
+function enemyCoordValidity(enemyCoord) {
+  let enemy = field.querySelector('[posX="' + (+enemyCoord[0]) + '"][posY="' + (+enemyCoord[1]) + '"]')
+  if (enemy.classList.contains('enemy') || enemy.classList.contains('tank')) {
+    return false
+  } 
+
+  return true
+}
+
+function setEnemy() {
+  let validity = false
+  let enemyCoords = []
+
+  while (!validity) {
+    enemyCoords = getEnemyCoord()
+    validity = enemyCoordValidity(enemyCoords)
+  }
+  
+  let enemy = field.querySelector('[posX="' + (+enemyCoords[0]) + '"][posY="' + (+enemyCoords[1]) + '"]')
+  enemy.classList.add('enemy')
 }
 
 function init() {
@@ -182,6 +224,9 @@ function init() {
   createTank(5, 5)
   tankControl()
   hit()
+  setEnemy()
+  setEnemy()
+  setEnemy()
 }
 
 init()
