@@ -1,0 +1,140 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  background-color: #e5e5e5;
+}
+
+.container {
+  width: 975px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  padding: 20px 0;
+  border-bottom: 1px solid grey;
+  margin-bottom: 20px;
+}
+
+.header .container {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+}
+
+
+.title {
+  margin: 0;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.cards {
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
+.card {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: calc(33.33333% - 30px);
+  margin: 15px;
+  position: relative;
+}
+
+.card img {
+  display: block;
+  width: 291px;
+  height: 291px;
+  object-fit: cover;
+}
+
+.hover {
+  display: none;
+}
+
+.card:hover .hover {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .7);
+  z-index: 3;
+  color: #fff;
+  cursor: pointer;
+}
+
+.hover__wrap {
+  height: 100%;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.likes {
+  padding-left: 30px;
+  position: relative;
+}
+
+.likes::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  background-image: url("img/like.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+  opacity: 0.9;
+  transition: opacity 100ms ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.likes-active::before {
+  background-image: url("img/like-active.svg");
+}
+
+.comments {
+  margin-top: 15px;
+  padding-left: 30px;
+  position: relative;
+}
+
+.comments::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  background-image: url("img/comment.svg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+  opacity: 0.9;
+  transition: opacity 100ms ease-in-out;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
