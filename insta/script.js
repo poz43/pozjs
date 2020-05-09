@@ -49,6 +49,7 @@ function createCards() {
     card.comments = getRandomNumber(3, 15)
     card.deskr = deskrs[getRandomNumber(1, 9)]
     card.id = i
+    card.active = false
     cards.push(card)
   }
 }
@@ -84,6 +85,29 @@ document.addEventListener('click', function (evt) {
 closeBtn.addEventListener('click', function () {
   modal.classList.remove('open')
 })
+
+document.addEventListener('click', function (evt) {
+  if (evt.target.classList.contains('likes')) {
+    let parentWrap = evt.target.closest('.hover__wrap')
+    let cardId = parentWrap.getAttribute('id')
+    let currentCard = cards[cardId]
+    currentCard.active = !currentCard.active
+    
+    let currentLikes = document.getElementById(`${cardId}`).querySelector(`.likes`)
+
+    if (currentCard.active) {
+      currentCard.likes = currentCard.likes + 1
+      currentLikes.classList.add(`likes-active`)
+
+    } else {
+      currentCard.likes = currentCard.likes - 1
+      currentLikes.classList.remove(`likes-active`)
+    }
+    
+    currentLikes.textContent = currentCard.likes
+  }
+})
+
 
 function init() {
   bodyEl.insertAdjacentHTML(`afterBegin`, createHeader())
